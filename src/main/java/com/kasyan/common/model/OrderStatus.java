@@ -1,0 +1,17 @@
+package com.kasyan.common.model;
+
+import java.util.Set;
+
+public enum OrderStatus {
+  NEW,
+  CANCELING,
+  CANCELED,
+  PAYMENT_AUTHORIZED,
+  PAYMENT_AUTHORIZATION_FAILED,
+  RESTAURANT_CHECKED,
+  COURIER_ASSIGNED,
+  COURIER_UNASSIGNED,
+  COURIER_TOOK_DELIVERY,
+  DELIVERED,
+  MANUAL_REVIEW,
+}
