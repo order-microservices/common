@@ -1,10 +1,12 @@
 package com.kasyan.common.event;
 
+import io.micronaut.serde.annotation.Serdeable;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
+@Serdeable
 public class PaymentValidationFailedEvent extends GeneralOrderEvent {
   private final String errorMessage;
 
