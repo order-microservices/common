@@ -13,5 +13,15 @@ public enum OrderStatus {
   COURIER_UNASSIGNED,
   COURIER_TOOK_DELIVERY,
   DELIVERED,
-  MANUAL_REVIEW,
+  MANUAL_REVIEW;
+
+  public static final Set<OrderStatus> FINAL_STATUSES = Set.of(DELIVERED, CANCELED);
+
+  public boolean isTerminal() {
+    return FINAL_STATUSES.contains(this);
+  }
+
+  public boolean isTerminalOrManualReview() {
+    return isTerminal() || this == MANUAL_REVIEW;
+  }
 }

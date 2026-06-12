@@ -16,7 +16,7 @@ public class FindCourierCommand extends GeneralOrderCommand {
   private final Coordinate coordinate;
 
   public FindCourierCommand(final String orderId, final String userId, final String restaurantId, final Coordinate coordinate) {
-    super(orderId, userId, CommandType.FIND_COURIER);
+    super(orderId, userId, CommandType.ASSIGN_COURIER);
     this.restaurantId = restaurantId;
     this.coordinate = coordinate;
   }
