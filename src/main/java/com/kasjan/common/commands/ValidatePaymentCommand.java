@@ -15,8 +15,8 @@ public class ValidatePaymentCommand extends GeneralOrderCommand {
 
   private Double amount;
 
-  public ValidatePaymentCommand(final String orderId, String userId, final Double amount) {
-    super(orderId, userId, CommandType.VALIDATE_PAYMENT);
+  public ValidatePaymentCommand(final String orderId, String accountId, final Double amount) {
+    super(orderId, accountId, CommandType.VALIDATE_PAYMENT);
     this.amount = amount;
   }
 }

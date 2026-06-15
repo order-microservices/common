@@ -12,8 +12,8 @@ public class CreateOrderCommand extends GeneralOrderCommand {
   private Double amount;
   private String currency;
 
-  public CreateOrderCommand(String orderId, String userId, String restaurantId, Double amount, String currency) {
-    super(orderId, userId, CommandType.CREATE_ORDER);
+  public CreateOrderCommand(String orderId, String accountId, String restaurantId, Double amount, String currency) {
+    super(orderId, accountId, CommandType.CREATE_ORDER);
     this.restaurantId = restaurantId;
     this.amount = amount;
     this.currency = currency;

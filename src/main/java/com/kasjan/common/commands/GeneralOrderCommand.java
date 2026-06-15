@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @Serdeable
 public class GeneralOrderCommand {
   private String orderId;
-  private String userId;
+  private String accountId;
   private CommandType type;
 }

@@ -17,8 +17,8 @@ public class AssignCourierCommand extends GeneralOrderCommand {
   private String restaurantId;
   private Coordinate coordinate;
 
-  public AssignCourierCommand(final String orderId, final String userId, final String restaurantId, final Coordinate coordinate) {
-    super(orderId, userId, CommandType.ASSIGN_COURIER);
+  public AssignCourierCommand(final String orderId, final String accountId, final String restaurantId, final Coordinate coordinate) {
+    super(orderId, accountId, CommandType.ASSIGN_COURIER);
     this.restaurantId = restaurantId;
     this.coordinate = coordinate;
   }

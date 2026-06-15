@@ -19,11 +19,11 @@ public class CheckRestaurantAvailabilityCommand extends GeneralOrderCommand {
 
   public CheckRestaurantAvailabilityCommand(
       final String orderId,
-      final String userId,
+      final String accountId,
       final String restaurantId,
       final List<Dish> dishes
   ) {
-    super(orderId, userId, CommandType.CHECK_RESTAURANT_AVAILABILITY);
+    super(orderId, accountId, CommandType.CHECK_RESTAURANT_AVAILABILITY);
     this.restaurantId = restaurantId;
     this.dishes = dishes;
   }
