@@ -2,12 +2,19 @@ package com.kasjan.common.kafka;
 
 import com.kasjan.common.Headers;
 import java.util.Map;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.ProducerInterceptor;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
 import org.slf4j.MDC;
 
+@Slf4j
 public class XRayIdProducerInterceptor implements ProducerInterceptor<String, Object> {
+
+  public XRayIdProducerInterceptor() {
+    log.info("XRayIdProducerInterceptor initialized");
+  }
+
   @Override
   public ProducerRecord<String, Object> onSend(final ProducerRecord<String, Object> producerRecord) {
     final var xRayId = MDC.get(Headers.X_RAY_ID);
