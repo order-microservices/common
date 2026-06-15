@@ -1,4 +1,4 @@
-package com.kasyan.common.model;
+package com.kasjan.common.model;
 
 import io.micronaut.serde.annotation.Serdeable;
 import lombok.Data;

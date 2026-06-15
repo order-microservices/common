@@ -1,4 +1,4 @@
-package com.kasyan.common.model;
+package com.kasjan.common.model;
 
 import java.util.Set;
 
@@ -7,6 +7,7 @@ public enum OrderStatus {
   CANCELING,
   CANCELED,
   PAYMENT_AUTHORIZED,
+  PAYMENT_VOIDED,
   PAYMENT_AUTHORIZATION_FAILED,
   RESTAURANT_CHECKED,
   COURIER_ASSIGNED,
@@ -21,7 +22,11 @@ public enum OrderStatus {
     return FINAL_STATUSES.contains(this);
   }
 
-  public boolean isTerminalOrManualReview() {
-    return isTerminal() || this == MANUAL_REVIEW;
+  public boolean isCanBeCancelledSilently() {
+    return this == NEW || this == PAYMENT_AUTHORIZATION_FAILED || this == PAYMENT_VOIDED;
+  }
+
+  public boolean isCanNotBeCancelled() {
+    return isTerminal() || this == COURIER_TOOK_DELIVERY;
   }
 }

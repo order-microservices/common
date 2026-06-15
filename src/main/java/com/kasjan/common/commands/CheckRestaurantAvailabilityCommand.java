@@ -1,4 +1,4 @@
-package com.kasyan.common.commands;
+package com.kasjan.common.commands;
 
 import io.micronaut.serde.annotation.Serdeable;
 import java.util.List;
@@ -8,12 +8,14 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+@Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @Serdeable
+@NoArgsConstructor
 public class CheckRestaurantAvailabilityCommand extends GeneralOrderCommand {
-  private final String restaurantId;
-  private final List<Dish> dishes;
+  private String restaurantId;
+  private List<Dish> dishes;
 
   public CheckRestaurantAvailabilityCommand(
       final String orderId,

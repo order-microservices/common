@@ -1,8 +1,11 @@
-package com.kasyan.common.commands;
+package com.kasjan.common.commands;
 
 public enum CommandType {
+  CREATE_ORDER,
   VALIDATE_PAYMENT,
+  VOID_PAYMENT,
   CHECK_RESTAURANT_AVAILABILITY,
   ASSIGN_COURIER,
   UNASSIGN_COURIER,
+  CANCEL_ORDER
 }

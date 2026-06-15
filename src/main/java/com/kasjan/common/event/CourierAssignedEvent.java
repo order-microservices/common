@@ -1,12 +1,14 @@
-package com.kasyan.common.event;
+package com.kasjan.common.event;
 
 import io.micronaut.serde.annotation.Serdeable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Serdeable
+@NoArgsConstructor
 public class CourierAssignedEvent extends GeneralOrderEvent {
 
   private String courierId;

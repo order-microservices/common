@@ -1,4 +1,4 @@
-package com.kasyan.common.commands;
+package com.kasjan.common.event;
 
 import io.micronaut.serde.annotation.Serdeable;
 import lombok.AllArgsConstructor;
@@ -9,8 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Serdeable
-public class GeneralOrderCommand {
-  private String orderId;
-  private String userId;
-  private CommandType type;
+public class GeneralOrderEvent {
+  private EventType type;
+  private String id;
 }
