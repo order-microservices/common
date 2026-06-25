@@ -1,6 +1,8 @@
 package com.kasjan.common.event;
 
 public enum EventType {
+  ACCOUNT_CREATED,
+
   ORDER_CREATED,
 
   PAYMENT_AUTHORIZED,

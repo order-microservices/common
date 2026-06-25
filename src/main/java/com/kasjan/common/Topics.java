@@ -13,6 +13,8 @@ public final class Topics {
   public static final String COURIER_COMMAND = "courier.command";
   public static final String COURIER_EVENT = "courier.event";
 
+  public static final String ACCOUNT_EVENT = "account.event";
+
 
   public static final String ORDER_SAGA_TOPIC = "order-saga-topic";
   public static final String RESTAURANT_TOPIC = "restaurant-topic";
