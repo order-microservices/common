@@ -1,0 +1,27 @@
+syntax = "proto3";
+import "command.proto";
+package com.kasjan.command.proto;
+
+message CreateAccountCommand {
+  string commandId = 1;
+  string externalId = 2;
+  string username = 3;
+  string familyName = 4;
+  string pictureUrl = 5;
+  string email = 6;
+}
+
+message CreateAccountResponse {
+  string id = 1;
+  string externalId = 2;
+  string username = 3;
+  string familyName = 4;
+  string pictureUrl = 5;
+  string email = 6;
+  bool enabled = 7;
+  bool created = 8;
+}
+
+service AccountService {
+  rpc createAccount(CreateAccountCommand) returns (CreateAccountResponse);
+}

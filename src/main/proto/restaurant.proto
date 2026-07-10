@@ -1,0 +1,30 @@
+syntax = "proto3";
+import "command.proto";
+package com.kasjan.command.proto;
+
+message AssignCourierCommand {
+  string commandId = 1;
+  string orderId = 2;
+  string restaurantId = 3;
+  CommandType type = 4;
+}
+
+message UnassingCourierCommand {
+  string commandId = 1;
+  string orderId = 2;
+  string courierId = 3;
+  CommandType type = 4;
+}
+
+message ValidateRestaurantCommand {
+  string commandId = 1;
+  string orderId = 2;
+  string restaurantId = 3;
+  CommandType type = 4;
+}
+
+service RestaurantService {
+  rpc assignCourier(AssignCourierCommand) returns (DefaultCommandResponse);
+  rpc unassignCourier(UnassingCourierCommand) returns (DefaultCommandResponse);
+  rpc checkRestaurant(ValidateRestaurantCommand) returns (DefaultCommandResponse);
+}

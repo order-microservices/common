@@ -1,0 +1,39 @@
+syntax = "proto3";
+import "validate/validate.proto";
+import "command.proto";
+package com.kasjan.command.proto;
+
+message CreateOrderCommand { // TODO: commandId !
+  string accountId = 1;
+  CommandType type = 2; // TODO: is it needed?
+  string restaurantId = 3;
+  double amount = 4;
+  string currency = 5 [
+    (validate.rules).string = {
+      len: 3
+      pattern: "^[A-Z]{3}$"
+    }
+  ];
+}
+
+message CreateOrderCommandResponse {
+  string id = 1;
+  string accountId = 2;
+  string restaurantId = 3;
+  double amount = 4;
+  string currency = 5;
+  bool success = 6;
+  optional string error_msg = 7;
+  string orderStatus = 8;
+}
+
+message CancelOrderCommand {
+  string commandId = 1;
+  string orderId = 2;
+  string reason = 3;
+}
+
+service OrderService {
+  rpc cancelOrder(CancelOrderCommand) returns (DefaultCommandResponse);
+  rpc createOrder(CreateOrderCommand) returns (CreateOrderCommandResponse);
+}

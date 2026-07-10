@@ -1,0 +1,17 @@
+syntax = "proto3";
+import "validate/validate.proto";
+import "command.proto";
+package com.kasjan.command.proto;
+
+message PaymentCommand {
+  string commandId = 1;
+  string orderId = 2;
+  string accountId = 3;
+  CommandType type = 4;
+  double amount = 5;
+}
+
+service PaymentService {
+  rpc validatePayment(PaymentCommand) returns (DefaultCommandResponse);
+  rpc voidPayment(PaymentCommand) returns (DefaultCommandResponse);
+}

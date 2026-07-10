@@ -7,8 +7,9 @@ import lombok.Data;
 @Data
 @Serdeable
 public class OrderEvent {
+  private String eventId;
   private EventType type;
-  private String id;
+  private String orderId;
   private String accountId;
   private Double amount;
   private String restaurantId;
@@ -17,50 +18,51 @@ public class OrderEvent {
   private String errorMessage;
   private Instant deliveredAt;
 
-  public static OrderEvent orderCreated(final String id, final String accountId, final Instant createdAt) {
+  public static OrderEvent orderCreated(final String eventId, String orderId, final String accountId, final Instant createdAt) {
     final var event = new OrderEvent();
+    event.setEventId(eventId);
     event.setType(EventType.ORDER_CREATED);
-    event.setId(id);
+    event.setOrderId(orderId);
     event.setAccountId(accountId);
     event.setCreatedAt(createdAt);
     return event;
   }
 
-  public static OrderEvent paymentAuthorized(final String id, final String accountId) {
+  public static OrderEvent paymentAuthorized(final String orderId, final String accountId) {
     final var event = new OrderEvent();
     event.setType(EventType.PAYMENT_AUTHORIZED);
-    event.setId(id);
+    event.setOrderId(orderId);
     event.setAccountId(accountId);
     return event;
   }
 
-  public static OrderEvent paymentAuthorizationFailed(final String id, final String accountId, final String errorMessage) {
+  public static OrderEvent paymentAuthorizationFailed(final String orderId, final String accountId, final String errorMessage) {
     final var event = new OrderEvent();
     event.setType(EventType.PAYMENT_VALIDATION_FAILED);
-    event.setId(id);
+    event.setOrderId(orderId);
     event.setAccountId(accountId);
     event.setErrorMessage(errorMessage);
     return event;
   }
 
   public static OrderEvent paymentVoided(
-      final String id,
+      final String orderId,
       final String accountId,
       final Double amount
   ) {
     final var event = new OrderEvent();
     event.setType(EventType.PAYMENT_VOIDED);
-    event.setId(id);
+    event.setOrderId(orderId);
     event.setAccountId(accountId);
     event.setAmount(amount);
 
     return event;
   }
 
-  public static OrderEvent restaurantConfirmed(final String id, final String restaurantId, final String accountId) {
+  public static OrderEvent restaurantConfirmed(final String orderId, final String restaurantId, final String accountId) {
     final var event = new OrderEvent();
     event.setType(EventType.RESTAURANT_AVAILABILITY_CHECKED);
-    event.setId(id);
+    event.setOrderId(orderId);
     event.setRestaurantId(restaurantId);
     event.setAccountId(accountId);
 
@@ -68,7 +70,7 @@ public class OrderEvent {
   }
 
   public static OrderEvent orderDelivered(
-      final String id,
+      final String orderId,
       final String accountId,
       final String restaurantId,
       final String courierId,
@@ -76,7 +78,7 @@ public class OrderEvent {
   ) {
     final var event = new OrderEvent();
     event.setType(EventType.ORDER_DELIVERED);
-    event.setId(id);
+    event.setOrderId(orderId);
     event.setAccountId(accountId);
     event.setRestaurantId(restaurantId);
     event.setCourierId(courierId);
@@ -86,12 +88,22 @@ public class OrderEvent {
     return event;
   }
 
-  public static OrderEvent orderCanceled(final String id, final String accountId, final double amount) {
+  public static OrderEvent orderCancelRequested(final String eventId, final String orderId, final String accountId) {
+    final var event = new OrderEvent();
+    event.setEventId(eventId);
+    event.setType(EventType.ORDER_CANCEL_REQUESTED);
+    event.setAccountId(accountId);
+    event.setOrderId(orderId);
+
+    return event;
+  }
+
+  public static OrderEvent orderCanceled(final String orderId, final String accountId, final double amount) {
     final var event = new OrderEvent();
     event.setType(EventType.ORDER_CANCELED);
     event.setAccountId(accountId);
     event.setAmount(amount);
-    event.setId(id);
+    event.setOrderId(orderId);
 
     return event;
   }
