@@ -7,6 +7,7 @@ message AssignCourierCommand {
   string orderId = 2;
   string restaurantId = 3;
   CommandType type = 4;
+  string xRayId = 5;
 }
 
 message UnassingCourierCommand {
@@ -14,13 +15,16 @@ message UnassingCourierCommand {
   string orderId = 2;
   string courierId = 3;
   CommandType type = 4;
+  string xRayId = 5;
 }
 
 message ValidateRestaurantCommand {
   string commandId = 1;
   string orderId = 2;
-  string restaurantId = 3;
-  CommandType type = 4;
+  string accountId = 3;
+  string restaurantId = 4;
+  CommandType type = 5;
+  string xRayId = 6;
 }
 
 service RestaurantService {

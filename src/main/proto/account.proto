@@ -9,6 +9,7 @@ message CreateAccountCommand {
   string familyName = 4;
   string pictureUrl = 5;
   string email = 6;
+  string xRayId = 7;
 }
 
 message CreateAccountResponse {

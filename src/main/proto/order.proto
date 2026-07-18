@@ -14,6 +14,7 @@ message CreateOrderCommand { // TODO: commandId !
       pattern: "^[A-Z]{3}$"
     }
   ];
+  string xRayId = 6;
 }
 
 message CreateOrderCommandResponse {
@@ -31,6 +32,7 @@ message CancelOrderCommand {
   string commandId = 1;
   string orderId = 2;
   string reason = 3;
+  string xRayId = 4;
 }
 
 service OrderService {

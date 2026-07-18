@@ -1,5 +1,4 @@
 syntax = "proto3";
-import "validate/validate.proto";
 import "command.proto";
 package com.kasjan.command.proto;
 
@@ -9,6 +8,7 @@ message PaymentCommand {
   string accountId = 3;
   CommandType type = 4;
   double amount = 5;
+  string xRayId = 6;
 }
 
 service PaymentService {

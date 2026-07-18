@@ -1,5 +1,4 @@
 syntax = "proto3";
-import "validate/validate.proto";
 package com.kasjan.command.proto;
 
 enum CommandType {

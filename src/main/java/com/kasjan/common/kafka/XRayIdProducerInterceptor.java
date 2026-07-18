@@ -1,6 +1,6 @@
 package com.kasjan.common.kafka;
 
-import com.kasjan.common.Headers;
+import com.kasjan.common.MdcConstants;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.ProducerInterceptor;
@@ -17,11 +17,11 @@ public class XRayIdProducerInterceptor implements ProducerInterceptor<String, Ob
 
   @Override
   public ProducerRecord<String, Object> onSend(final ProducerRecord<String, Object> producerRecord) {
-    final var xRayId = MDC.get(Headers.X_RAY_ID);
+    final var xRayId = MDC.get(MdcConstants.X_RAY_ID);
     if (xRayId == null) {
       throw new RuntimeException("XRayId is not set");
     }
-    producerRecord.headers().add(Headers.X_RAY_ID, xRayId.getBytes());
+    producerRecord.headers().add(MdcConstants.X_RAY_ID, xRayId.getBytes());
     return producerRecord;
   }
 

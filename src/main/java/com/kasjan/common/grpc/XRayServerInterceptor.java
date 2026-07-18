@@ -1,6 +1,6 @@
 package com.kasjan.common.grpc;
 
-import com.kasjan.common.Headers;
+import com.kasjan.common.MdcConstants;
 import io.grpc.Metadata;
 import io.grpc.ServerCall;
 import io.grpc.ServerCallHandler;
@@ -10,7 +10,7 @@ import org.slf4j.MDC;
 public class XRayServerInterceptor implements ServerInterceptor {
 
   private static final Metadata.Key<String> X_RAY_ID = Metadata.Key.of(
-      Headers.X_RAY_ID,
+      MdcConstants.X_RAY_ID,
       Metadata.ASCII_STRING_MARSHALLER
   );
 
@@ -22,7 +22,7 @@ public class XRayServerInterceptor implements ServerInterceptor {
   ) {
     final var xrayId = metadata.get(X_RAY_ID);
     if (xrayId != null) {
-      MDC.put(Headers.X_RAY_ID, xrayId);
+      MDC.put(MdcConstants.X_RAY_ID, xrayId);
     }
     return serverCallHandler.startCall(serverCall, metadata);
   }

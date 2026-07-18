@@ -19,6 +19,7 @@ public class AccountCreatedEvent {
   private String pictureUrl;
   private String email;
   private Instant createdAt;
+  private String xRayId;
 
   public AccountCreatedEvent(
       final String accountId,
@@ -29,6 +30,6 @@ public class AccountCreatedEvent {
       final String email,
       final Instant createdAt
   ) {
-    this(EventType.ACCOUNT_CREATED, accountId, externalId, username, familyName, pictureUrl, email, createdAt);
+    this(EventType.ACCOUNT_CREATED, accountId, externalId, username, familyName, pictureUrl, email, createdAt, null);
   }
 }
