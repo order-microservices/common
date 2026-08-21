@@ -1,5 +1,6 @@
 syntax = "proto3";
 import "command.proto";
+import "validate/validate.proto";
 package com.kasjan.command.proto;
 
 message PaymentCommand {
@@ -8,10 +9,18 @@ message PaymentCommand {
   string accountId = 3;
   CommandType type = 4;
   double amount = 5;
-  string xRayId = 6;
+  string currency = 6 [
+    (validate.rules).string = {
+      len: 3
+      pattern: "^[A-Z]{3}$"
+    }
+  ];
+  string xRayId = 7;
+  int64 createdAt = 8;
 }
 
 service PaymentService {
   rpc validatePayment(PaymentCommand) returns (DefaultCommandResponse);
   rpc voidPayment(PaymentCommand) returns (DefaultCommandResponse);
+  rpc capturePayment(PaymentCommand) returns (DefaultCommandResponse);
 }

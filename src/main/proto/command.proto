@@ -2,16 +2,26 @@ syntax = "proto3";
 package com.kasjan.command.proto;
 
 enum CommandType {
-  CREATE_ORDER = 0;
-  VALIDATE_PAYMENT = 1;
-  VOID_PAYMENT = 2;
-  CHECK_RESTAURANT_AVAILABILITY = 3;
-  ASSIGN_COURIER = 4;
-  UNASSIGN_COURIER = 5;
-  CANCEL_ORDER = 6;
+  NULL = 0;
+  CREATE_ORDER = 1;
+  VALIDATE_PAYMENT = 2;
+  VOID_PAYMENT = 3;
+  CHECK_RESTAURANT_AVAILABILITY = 4;
+  ASSIGN_COURIER = 5;
+  ACCEPT_OFFER = 6;
+  UNASSIGN_COURIER = 7;
+  PICK_UP_ORDER = 8;
+  CANCEL_ORDER = 9;
+  UPDATE_COURIER_STATUS = 10;
+  DELIVER_ORDER = 11;
 }
 
 message DefaultCommandResponse {
   bool success = 1;
   string error_msg = 2;
+}
+
+message Location {
+  double latitude = 1;
+  double longitude = 2;
 }

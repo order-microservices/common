@@ -1,5 +1,7 @@
 package com.kasjan.common.event;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.kasjan.common.model.Location;
 import io.micronaut.serde.annotation.Serdeable;
 import java.time.Instant;
 import java.util.UUID;
@@ -18,8 +20,14 @@ public class OrderEvent {
   private Instant createdAt;
   private String errorMessage;
   private Instant deliveredAt;
+  @JsonProperty("xRayId")
   private String xRayId;
   private Instant eventTime;
+  private Location pickupLocation;
+  private Location dropoffLocation;
+  private Double distanceToPickup;
+  private Double distanceToDropOff;
+  private String offerId;
 
   public static OrderEvent orderCreated(
       final String eventId,
@@ -121,6 +129,30 @@ public class OrderEvent {
     return event;
   }
 
+  public static OrderEvent orderDelivered(
+      final String orderId,
+      final String courierId,
+      final String offerId,
+      final String accountId,
+      final String xRayId,
+      final Instant deliveredAt,
+      final Instant eventTime
+  ) {
+    final var type = EventType.ORDER_DELIVERED;
+    final var event = new OrderEvent();
+    event.setEventId(type.eventId(orderId, courierId, offerId));
+    event.setType(type);
+    event.setOrderId(orderId);
+    event.setCourierId(courierId);
+    event.setOfferId(offerId);
+    event.setAccountId(accountId);
+    event.setXRayId(xRayId);
+    event.setDeliveredAt(deliveredAt);
+    event.setEventTime(eventTime);
+
+    return event;
+  }
+
   public static OrderEvent orderCancelRequested(
       final String eventId,
       final String orderId,
@@ -171,19 +203,115 @@ public class OrderEvent {
     return event;
   }
 
-  public static OrderEvent courierTookOrder(
+  public static OrderEvent courierPickedUpOrder(
       final String orderId,
+      final String courierId,
+      final String offerId,
       final String accountId,
       final String xRayId,
       final Instant eventTime
   ) {
+    final var type = EventType.COURIER_PICKED_UP_ORDER;
     final var event = new OrderEvent();
-    event.setEventId(UUID.randomUUID().toString());
-    event.setType(EventType.COURIER_TOOK_ORDER);
-    event.setAccountId(accountId);
+    event.setEventId(type.eventId(orderId, courierId));
+    event.setOfferId(offerId);
+    event.setType(type);
     event.setOrderId(orderId);
+    event.setCourierId(courierId);
+    event.setAccountId(accountId);
     event.setXRayId(xRayId);
     event.setEventTime(eventTime);
+
+    return event;
+  }
+
+  public static OrderEvent orderOfferedForCourier(
+      final String eventId,
+      final String orderId,
+      final String offerId,
+      final String courierId,
+      final String accountId,
+      final Location pickupLocation,
+      final Location dropoffLocation,
+      final double distanceToPickup,
+      final double distanceToDropOff,
+      final Instant createdAt,
+      final String xRayId,
+      final Instant eventTime
+  ) {
+    final var event = new OrderEvent();
+    event.setEventId(eventId);
+    event.setType(EventType.ORDER_OFFERED_TO_COURIER);
+    event.setOrderId(orderId);
+    event.setCourierId(courierId);
+    event.setAccountId(accountId);
+    event.setEventTime(eventTime);
+    event.setPickupLocation(pickupLocation);
+    event.setDropoffLocation(dropoffLocation);
+    event.setDistanceToPickup(distanceToPickup);
+    event.setDistanceToDropOff(distanceToDropOff);
+    event.setCreatedAt(createdAt);
+    event.setOfferId(offerId);
+    event.setXRayId(xRayId);
+
+    return event;
+  }
+
+  public static OrderEvent courierAcceptedOffer(
+      final String orderId,
+      final String offerId,
+      final String courierId,
+      final String accountId,
+      final String xRayId
+  ) {
+    final var type = EventType.COURIER_ACCEPTED_OFFER;
+    final var id = type.eventId(offerId);
+    final var event = new OrderEvent();
+    event.setEventId(id);
+    event.setOfferId(offerId);
+    event.setOrderId(orderId);
+    event.setCourierId(courierId);
+    event.setAccountId(accountId);
+    event.setType(type);
+    event.setXRayId(xRayId);
+
+    return event;
+  }
+
+  public static OrderEvent courierUnassigned(
+      final String orderId,
+      final String courierId,
+      final String accountId,
+      final String xRayId
+  ) {
+    final var type = EventType.COURIER_UNASSIGNED;
+    final var id = type.eventId(orderId, courierId);
+    final var event = new OrderEvent();
+    event.setEventId(id);
+    event.setOrderId(orderId);
+    event.setCourierId(courierId);
+    event.setAccountId(accountId);
+    event.setType(type);
+    event.setXRayId(xRayId);
+
+    return event;
+  }
+
+  public static OrderEvent offerExpired(
+      final String orderId,
+      final String offerId,
+      final String courierId,
+      final String xRayId
+  ) {
+    final var type = EventType.OFFER_EXPIRED;
+    final var id = type.eventId(offerId);
+    final var event = new OrderEvent();
+    event.setEventId(id);
+    event.setOfferId(offerId);
+    event.setOrderId(orderId);
+    event.setType(type);
+    event.setXRayId(xRayId);
+    event.setCourierId(courierId);
 
     return event;
   }

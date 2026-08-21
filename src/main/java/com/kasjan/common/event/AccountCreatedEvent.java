@@ -1,5 +1,6 @@
 package com.kasjan.common.event;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.micronaut.serde.annotation.Serdeable;
 import java.time.Instant;
 import lombok.AllArgsConstructor;
@@ -19,17 +20,6 @@ public class AccountCreatedEvent {
   private String pictureUrl;
   private String email;
   private Instant createdAt;
+  @JsonProperty("xRayId")
   private String xRayId;
-
-  public AccountCreatedEvent(
-      final String accountId,
-      final String externalId,
-      final String username,
-      final String familyName,
-      final String pictureUrl,
-      final String email,
-      final Instant createdAt
-  ) {
-    this(EventType.ACCOUNT_CREATED, accountId, externalId, username, familyName, pictureUrl, email, createdAt, null);
-  }
 }

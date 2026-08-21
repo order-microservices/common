@@ -3,18 +3,21 @@ import "validate/validate.proto";
 import "command.proto";
 package com.kasjan.command.proto;
 
-message CreateOrderCommand { // TODO: commandId !
-  string accountId = 1;
-  CommandType type = 2; // TODO: is it needed?
-  string restaurantId = 3;
-  double amount = 4;
-  string currency = 5 [
+message CreateOrderCommand {
+  string commandId = 1;
+  string accountId = 2;
+  CommandType type = 3; // TODO: is it needed?
+  string restaurantId = 4;
+  double amount = 5;
+  string currency = 6 [
     (validate.rules).string = {
       len: 3
       pattern: "^[A-Z]{3}$"
     }
   ];
-  string xRayId = 6;
+  Location deliveryLocation = 8;
+  Location pickUpLocation = 9;
+  string xRayId = 10;
 }
 
 message CreateOrderCommandResponse {

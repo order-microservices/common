@@ -2,13 +2,67 @@ syntax = "proto3";
 import "command.proto";
 package com.kasjan.command.proto;
 
-message AssignCourierCommand {
+enum CourierStatus {
+  UNKNOWN = 0;
+  AVAILABLE = 1;
+  OFFLINE = 2;
+}
+
+message FindCouriersForOrderCommand {
   string commandId = 1;
   string orderId = 2;
   string accountId = 3;
   string restaurantId = 4;
   CommandType type = 5;
   string xRayId = 6;
+  Location pickUpLocation = 7;
+  Location deliveryLocation = 8;
+  int64 orderCreatedAtInMillis = 9;
+  int64 commandCreatedAtInMillis = 10;
+}
+
+message AcceptOfferCommand {
+  string commandId = 1;
+  string courierId = 2;
+  string offerId = 3;
+  string orderId = 4;
+  CommandType type = 5;
+  string xRayId = 6;
+  int64 orderCreatedAtInMillis = 7;
+  int64 commandCreatedAtInMillis = 8;
+}
+
+message RejectOfferCommand {
+  string commandId = 1;
+  string courierId = 2;
+  string offerId = 3;
+  string orderId = 4;
+  CommandType type = 5;
+  string xRayId = 6;
+  int64 orderCreatedAtInMillis = 7;
+  int64 commandCreatedAtInMillis = 8;
+}
+
+message PickUpOrderCommand {
+  string commandId = 1;
+  string courierId = 2;
+  string orderId = 3;
+  string offerId = 4;
+  CommandType type = 5;
+  string xRayId = 6;
+  int64 orderCreatedAtInMillis = 7;
+  int64 commandCreatedAtInMillis = 8;
+}
+
+message DeliverOrderCommand {
+  string commandId = 1;
+  string courierId = 2;
+  string orderId = 3;
+  string offerId = 4;
+  CommandType type = 5;
+  string xRayId = 6;
+  int64 orderCreatedAtInMillis = 7;
+  int64 commandCreatedAtInMillis = 8;
 }
 
 message UnassingCourierCommand {
@@ -16,11 +70,54 @@ message UnassingCourierCommand {
   string orderId = 2;
   string accountId = 3;
   string courierId = 4;
-  CommandType type = 5;
-  string xRayId = 6;
+  string offerId = 5;
+  CommandType type = 6;
+  string xRayId = 7;
+  int64 orderCreatedAtInMillis = 8;
+}
+
+message UpdateCourierStatusCommand {
+  string commandId = 1;
+  string courierId = 2;
+  Location location = 3;
+  CourierStatus status = 4;
+  string xRayId = 5;
+  CommandType type = 6;
+  int64 commandCreatedAtInMillis = 7;
+}
+
+message CourierWorkspaceQuery {
+  string courierId = 1;
+}
+
+message CourierWorkspaceOffer {
+  string orderId = 1;
+  string offerId = 2;
+  string courierId = 3;
+  string accountId = 4;
+  string status = 5;
+  Location pickupLocation = 6;
+  Location dropoffLocation = 7;
+  double distanceToPickup = 8;
+  double distanceToDropOff = 9;
+  int64 orderCreatedAtInMillis = 10;
+  int64 createdAtInMillis = 11;
+}
+
+message CourierWorkspaceResponse {
+  repeated CourierWorkspaceOffer offers = 1;
+  repeated CourierWorkspaceOffer activeOrders = 2;
+  bool success = 3;
+  string errorMessage = 4;
 }
 
 service CourierService {
-  rpc assignCourier(AssignCourierCommand) returns (DefaultCommandResponse);
+  rpc findCouriersForOrder(FindCouriersForOrderCommand) returns (DefaultCommandResponse);
+  rpc acceptOffer(AcceptOfferCommand) returns (DefaultCommandResponse);
+  rpc rejectOffer(RejectOfferCommand) returns (DefaultCommandResponse);
+  rpc pickUpOrder(PickUpOrderCommand) returns (DefaultCommandResponse);
+  rpc deliverOrder(DeliverOrderCommand) returns (DefaultCommandResponse);
   rpc unassignCourier(UnassingCourierCommand) returns (DefaultCommandResponse);
+  rpc updateCourierStatus(UpdateCourierStatusCommand) returns (DefaultCommandResponse);
+  rpc getCourierWorkspace(CourierWorkspaceQuery) returns (CourierWorkspaceResponse);
 }

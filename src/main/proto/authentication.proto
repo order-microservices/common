@@ -1,0 +1,23 @@
+syntax = "proto3";
+import "command.proto";
+package com.kasjan.command.proto;
+
+message Credentials {
+  string username = 1;
+  string password = 2;
+}
+
+message AuthenticateCommand {
+  Credentials credentials = 1;
+  string xrayId = 2;
+}
+
+message AuthResponse {
+  bool success = 1;
+  string errorMsg = 2;
+  string token = 3;
+}
+
+service AuthService {
+  rpc authenticateCourier(AuthenticateCommand) returns (AuthResponse);
+}
