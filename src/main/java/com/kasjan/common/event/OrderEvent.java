@@ -17,7 +17,6 @@ public class OrderEvent {
   private Double amount;
   private String restaurantId;
   private String courierId;
-  private Instant createdAt;
   private String errorMessage;
   private Instant deliveredAt;
   @JsonProperty("xRayId")
@@ -33,7 +32,6 @@ public class OrderEvent {
       final String eventId,
       String orderId,
       final String accountId,
-      final Instant createdAt,
       final Instant eventTime
   ) {
     final var event = new OrderEvent();
@@ -41,7 +39,6 @@ public class OrderEvent {
     event.setType(EventType.ORDER_CREATED);
     event.setOrderId(orderId);
     event.setAccountId(accountId);
-    event.setCreatedAt(createdAt);
     event.setEventTime(eventTime);
     return event;
   }
@@ -235,7 +232,6 @@ public class OrderEvent {
       final Location dropoffLocation,
       final double distanceToPickup,
       final double distanceToDropOff,
-      final Instant createdAt,
       final String xRayId,
       final Instant eventTime
   ) {
@@ -245,12 +241,11 @@ public class OrderEvent {
     event.setOrderId(orderId);
     event.setCourierId(courierId);
     event.setAccountId(accountId);
-    event.setEventTime(eventTime);
     event.setPickupLocation(pickupLocation);
     event.setDropoffLocation(dropoffLocation);
     event.setDistanceToPickup(distanceToPickup);
     event.setDistanceToDropOff(distanceToDropOff);
-    event.setCreatedAt(createdAt);
+    event.setEventTime(eventTime);
     event.setOfferId(offerId);
     event.setXRayId(xRayId);
 
@@ -262,7 +257,8 @@ public class OrderEvent {
       final String offerId,
       final String courierId,
       final String accountId,
-      final String xRayId
+      final String xRayId,
+      final Instant eventTime
   ) {
     final var type = EventType.COURIER_ACCEPTED_OFFER;
     final var id = type.eventId(offerId);
@@ -274,6 +270,7 @@ public class OrderEvent {
     event.setAccountId(accountId);
     event.setType(type);
     event.setXRayId(xRayId);
+    event.setEventTime(eventTime);
 
     return event;
   }
@@ -282,7 +279,8 @@ public class OrderEvent {
       final String orderId,
       final String courierId,
       final String accountId,
-      final String xRayId
+      final String xRayId,
+      final Instant eventTime
   ) {
     final var type = EventType.COURIER_UNASSIGNED;
     final var id = type.eventId(orderId, courierId);
@@ -293,6 +291,7 @@ public class OrderEvent {
     event.setAccountId(accountId);
     event.setType(type);
     event.setXRayId(xRayId);
+    event.setEventTime(eventTime);
 
     return event;
   }
@@ -301,7 +300,8 @@ public class OrderEvent {
       final String orderId,
       final String offerId,
       final String courierId,
-      final String xRayId
+      final String xRayId,
+      final Instant eventTime
   ) {
     final var type = EventType.OFFER_EXPIRED;
     final var id = type.eventId(offerId);
@@ -312,6 +312,7 @@ public class OrderEvent {
     event.setType(type);
     event.setXRayId(xRayId);
     event.setCourierId(courierId);
+    event.setEventTime(eventTime);
 
     return event;
   }
